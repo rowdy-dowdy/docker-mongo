@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image : mongo
+    environment:
+      # provide your credentials here
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+    ports:
+      - "27017:27017"
+    volumes:
+        # if you wish to setup additional user accounts specific per DB or with different roles you can use following entry point
+      - "$PWD/mongo/data/db:/data/db"
+      - "$PWD/mongo/mongo-entrypoint/:/docker-entrypoint-initdb.d/"
+      # - ./mongo/mongo.conf:/etc/mongo/mongo.conf
+    command: mongod
+
+
+    # docker run -d -p 8081:8081   --network my-network --name my-mongo-express -e ME_CONFIG_OPTIONS_EDITORTHEME="ambiance" -e ME_CONFIG_MONGODB_SERVER="my-mongo" -e ME_CONFIG_MONGODB_ADMINUSERNAME="admin" -e ME_CONFIG_MONGODB_ADMINPASSWORD="pass" mongo-express
+
+    #   --network my-network --name my-mongo-express -e ME_CONFIG_OPTIONS_EDITORTHEME="ambiance" -e ME_CONFIG_MONGODB_SERVER="my-mongo" -e ME_CONFIG_BASICAUTH_USERNAME="admin" -e ME_CONFIG_BASICAUTH_PASSWORD="pass" mong
